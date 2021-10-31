@@ -21,6 +21,7 @@ async function run() {
         console.log("Connected Successfully");
         const database = client.db("ema-jhon");
         const collection = database.collection("products");
+        const orders = database.collection("orders");
 
         app.get("/products", async (req, res) => {
             const page = parseInt(req.query.page);
@@ -53,10 +54,17 @@ async function run() {
                 }
             };
             const products = await collection.find(query).toArray();
-            console.log(products);
             res.json(products);
 
 
+        })
+
+        // Order API
+        app.post("/orders",async (req,res)=>{
+            const order = req.body;
+            console.log(orders);
+            const result = await orders.insertOne(order);
+            res.json(result);
         })
 
     } finally {
