@@ -33,7 +33,7 @@ async function run() {
             const allProducts = await cursor.toArray();
             let start = 0;
             let end = count;
-            if (count) {
+            if (page && size) {
                 start = size * (page - 1);
                 end = size * (page);
                 console.log(start, end);
